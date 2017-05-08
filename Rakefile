@@ -1,17 +1,17 @@
 $: << "#{__dir__}/lib"
 
-require 'lucid/shopify/shop_cache/version'
+require 'lucid/shopify/cache/version'
 
 task :default => :build
 
 task :build do
-  system 'gem build lucid-shopify-shop-cache.gemspec'
+  system 'gem build lucid-shopify-cache.gemspec'
 end
 
 task :install => :build do
-  system "gem install lucid-shopify-shop-cache-#{Lucid::Shopify::ShopCache::VERSION}.gem"
+  system "gem install lucid-shopify-cache-#{Lucid::Shopify::Cache::VERSION}.gem"
 end
 
 task :clean do
-  system 'rm lucid-shopify-shop-cache-*.gem'
+  system 'rm lucid-shopify-cache-*.gem'
 end

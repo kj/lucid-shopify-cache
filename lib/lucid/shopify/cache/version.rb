@@ -1,7 +1,7 @@
 module Lucid
   module Shopify
-    module ShopCache
-      VERSION = '0.0.1'
+    class Cache
+      VERSION = '0.0.1'.freeze
     end
   end
 end
