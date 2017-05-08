@@ -1,6 +1,6 @@
 $: << "#{__dir__}/lib"
 
-require 'lucid_shopify_shop_cache/version'
+require 'lucid/shopify/shop_cache/version'
 
 task :default => :build
 
