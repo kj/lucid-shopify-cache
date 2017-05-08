@@ -1,9 +1,14 @@
+require 'net/http'
+require 'uri'
+
 require_relative '../cache'
 
 module Lucid
   module Shopify
     class Cache
       class Shop
+        RequestError = Class.new(StandardError)
+
         attr_accessor :myshopify_domain, :access_token, :redis_client
 
         #
@@ -23,7 +28,7 @@ module Lucid
         # @return [Hash]
         #
         def attributes
-          @attributes ||= cache('attributes') { get_attributes }
+          @attributes ||= cache.('attributes') { api_attributes }
         end
 
         #
@@ -42,8 +47,23 @@ module Lucid
           @cache ||= Cache.new('shops:%s' % myshopify_domain, redis_client)
         end
 
-        private def get_attributes
-          # TODO: query API using Net::HTTP.
+        private def api_attributes
+          uri = URI('https://%s/admin/shop.json' % myshopify_domain)
+
+          req = Net::HTTP::Get.new(uri)
+          req['Accept'] = 'application/json'
+          req['X-Shopify-Access-Token'] = access_token
+          res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => true) { |h| h.request(req) }
+
+          if res.code.to_i != 200
+            raise RequestError, 'invalid response code %s' % res.code.to_i
+          end
+
+          api_attributes_parse(res.body)
+        end
+
+        private def api_attributes_parse(body)
+          JSON.parse(body)['shop']
         end
 
         #
