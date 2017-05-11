@@ -3,6 +3,8 @@ require 'json'
 module Lucid
   module Shopify
     class Cache
+      TTL = ENV['LUCID_SHOPIFY_CACHE_TTL'] || 3600
+
       attr_accessor :namespace, :redis_client
 
       #
@@ -19,7 +21,7 @@ module Lucid
       # @param seconds [Integer]
       # @yield a block returning the new cache value if required
       #
-      def call(key, seconds = 3600, &value)
+      def call(key, seconds = TTL, &value)
         k = namespaced_key(key)
         v = redis_client.get(k)
 
