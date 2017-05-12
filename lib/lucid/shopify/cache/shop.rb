@@ -53,7 +53,7 @@ module Lucid
           req = Net::HTTP::Get.new(uri)
           req['Accept'] = 'application/json'
           req['X-Shopify-Access-Token'] = access_token
-          res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => true) { |h| h.request(req) }
+          res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |h| h.request(req) }
 
           if res.code.to_i != 200
             raise RequestError, 'invalid response code %s' % res.code.to_i
