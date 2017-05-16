@@ -1,4 +1,4 @@
-$: << "#{__dir__}/lib"
+$:.unshift "#{__dir__}/lib"
 
 require 'lucid/shopify/cache/version'
 
