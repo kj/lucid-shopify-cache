@@ -4,7 +4,7 @@ lucid-shopify-cache
 Installation
 ------------
 
-Add the following line to your ‘Gemfile’:
+Add the following lines to your ‘Gemfile’:
 
     git_source :lucid { |r| "https://github.com/luciddesign/gem-#{r}.git" }
 
