@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.author = 'Kelsey Judson'
   s.email = 'kelsey@lucid.co.nz'
   s.files = Dir.glob('lib/**/*') + %w(README.md)
-  s.homepage = 'https://github.com/luciddesign/lucid-shopify-cache'
+  s.homepage = 'https://github.com/lucidnz/gem-lucid-shopify-cache'
   s.license = 'ISC'
   s.name = 'lucid-shopify-cache'
   s.summary = 'Cache Shopify API data'
