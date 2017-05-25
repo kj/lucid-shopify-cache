@@ -6,7 +6,7 @@ Installation
 
 Add the following lines to your ‘Gemfile’:
 
-    git_source :lucid { |r| "https://github.com/lucidnz/gem-#{r}.git" }
+    git_source :lucid { |r| 'https://github.com/lucidnz/gem-%s.git' % r }
 
     gem 'lucid-shopify-cache', lucid: 'lucid-shopify-cache'
 
