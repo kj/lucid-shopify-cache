@@ -28,7 +28,9 @@ module Lucid
         # @return [Hash]
         #
         def attributes
-          @attributes ||= cache.('attributes') { api_attributes }
+          @attributes ||=
+
+          cache.('attributes') { api_attributes }.freeze
         end
 
         #
@@ -44,7 +46,9 @@ module Lucid
         end
 
         private def cache
-          @cache ||= Cache.new('shops:%s' % myshopify_domain, redis_client)
+          @cache ||=
+
+          Cache.new('shops:%s' % myshopify_domain, redis_client)
         end
 
         private def api_attributes
