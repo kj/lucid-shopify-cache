@@ -1,4 +1,4 @@
 # Primarily for Bundler.
 
-require 'lucid/shopify/cache'
-require 'lucid/shopify/cache/shop'
+require_relative './lucid/shopify/cache'
+require_relative './lucid/shopify/cache/shop'
