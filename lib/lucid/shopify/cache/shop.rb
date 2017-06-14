@@ -62,8 +62,10 @@ module Lucid
           req['X-Shopify-Access-Token'] = access_token
           res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |h| h.request(req) }
 
-          if res.code.to_i != 200
-            raise Lucid::Shopify::Cache::RequestError.new(res.code), 'invalid response code %s' % res.code.to_i
+          status = res.code.to_i
+
+          if status != 200
+            raise Lucid::Shopify::Cache::RequestError.new(status), 'invalid response code %s' % status
           end
 
           api_attributes_parse(res.body)
