@@ -1,14 +1,13 @@
 require 'net/http'
 require 'uri'
 
-require_relative '../cache'
+require_relative './cache'
+require_relative './errors'
 
 module Lucid
   module Shopify
-    class Cache
+    module Cache
       class Shop
-        RequestError = Class.new(StandardError)
-
         attr_accessor :myshopify_domain, :access_token, :redis_client
 
         #
@@ -27,6 +26,8 @@ module Lucid
         #
         # @return [Hash]
         #
+        # @raise [Lucid::Shopify::Cache::RequestError] if the response status >= 400
+        #
         def attributes
           @attributes ||=
 
@@ -38,6 +39,8 @@ module Lucid
         # most up to date data). Use this when accuracy is important.
         #
         # @return [Hash]
+        #
+        # @raise [Lucid::Shopify::Cache::RequestError] if the response status >= 400
         #
         def attributes!
           clear
@@ -60,7 +63,7 @@ module Lucid
           res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |h| h.request(req) }
 
           if res.code.to_i != 200
-            raise RequestError, 'invalid response code %s' % res.code.to_i
+            raise Lucid::Shopify::Cache::RequestError.new(res.code), 'invalid response code %s' % res.code.to_i
           end
 
           api_attributes_parse(res.body)
