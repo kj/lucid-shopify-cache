@@ -1,7 +1,9 @@
+require_relative './error'
+
 module Lucid
   module Shopify
     module Cache
-      class RequestError < StandardError
+      class RequestError < Error
         attr_reader :status
 
         #
