@@ -8,8 +8,6 @@ module Lucid
   module Shopify
     module Cache
       class Shop
-        attr_accessor :myshopify_domain, :access_token, :redis_client
-
         #
         # @param myshopify_domain [String]
         # @param access_token [String]
@@ -20,6 +18,10 @@ module Lucid
           @access_token = access_token
           @redis_client = redis_client || defined?(Redis) && Redis.current
         end
+
+        attr_reader :myshopify_domain,
+        attr_reader :access_token,
+        attr_reader :redis_client
 
         #
         # Get shop attributes hash from API or cache.

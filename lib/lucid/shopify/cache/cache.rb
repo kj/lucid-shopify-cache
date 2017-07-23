@@ -6,8 +6,6 @@ module Lucid
       class Cache
         TTL = ENV['LUCID_SHOPIFY_CACHE_TTL'] || 3600
 
-        attr_accessor :namespace, :redis_client
-
         #
         # @param namespace [String]
         # @param redis_client [Redis]
@@ -16,6 +14,9 @@ module Lucid
           @namespace = namespace
           @redis_client = redis_client || defined?(Redis) && Redis.current
         end
+
+        attr_reader :namespace
+        attr_reader :redis_client
 
         #
         # @param key [String]
