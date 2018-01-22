@@ -5,7 +5,7 @@ require 'lucid_shopify/cache/version'
 Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.6.0'
   s.author = 'Kelsey Judson'
-  s.email = 'kelsey@lucid.co.nz'
+  s.email = 'kelsey@lucid.nz'
   s.files = Dir.glob('lib/**/*') + %w(README.md)
   s.homepage = 'https://github.com/lucidnz/gem-lucid_shopify-cache'
   s.license = 'ISC'
