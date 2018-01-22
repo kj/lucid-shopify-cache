@@ -6,7 +6,6 @@ module LucidShopify
     #
     #     rescue LucidShopify::Cache::Error => e
     #
-    class Error < StandardError
-    end
+    Error = Class.new(StandardError)
   end
 end
