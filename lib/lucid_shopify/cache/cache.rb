@@ -16,7 +16,9 @@ module LucidShopify
         @redis_client = redis_client || defined?(Redis) && Redis.current
       end
 
+      # @return [String]
       attr_reader :namespace
+      # @return [Redis]
       attr_reader :redis_client
 
       #

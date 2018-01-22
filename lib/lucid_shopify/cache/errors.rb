@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-require_relative './errors/request_error'
+require 'lucid_shopify/cache/errors/request_error'

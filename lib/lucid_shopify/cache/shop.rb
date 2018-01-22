@@ -2,8 +2,8 @@
 
 require 'net/http'
 require 'uri'
-require_relative './cache'
-require_relative './errors'
+require 'lucid_shopify/cache/cache'
+require 'lucid_shopify/cache/errors'
 
 module LucidShopify
   module Cache
@@ -19,8 +19,11 @@ module LucidShopify
         @redis_client = redis_client || defined?(Redis) && Redis.current
       end
 
+      # @return [String]
       attr_reader :myshopify_domain
+      # @return [String]
       attr_reader :access_token
+      # @return [Redis]
       attr_reader :redis_client
 
       #

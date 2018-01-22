@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './cache/shop'
-
 module LucidShopify
   module Cache; end
 end
+
+require 'lucid_shopify/cache/shop'

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './error'
+require 'lucid_shopify/cache/errors/error'
 
 module LucidShopify
   module Cache
@@ -12,6 +12,7 @@ module LucidShopify
         @status = status
       end
 
+      # @return [Integer]
       attr_reader :status
     end
   end
