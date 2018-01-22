@@ -1,4 +1,4 @@
-lucid-shopify-cache
+lucid_shopify-cache
 ===================
 
 Installation
@@ -6,24 +6,23 @@ Installation
 
 Add the following lines to your ‘Gemfile’:
 
-    git_source :lucid { |r| "https://github.com/lucidnz/gem-lucid-#{r}.git" }
+    git_source :lucid { |r| "https://github.com/lucidnz/gem-lucid_#{r}.git" }
 
-    gem 'lucid-shopify-cache', lucid: 'shopify-cache'
+    gem 'lucid_shopify-cache', lucid: 'shopify-cache'
 
 
 Usage
 -----
 
-    require 'lucid/shopify/cache'
-    require 'lucid/shopify/cache/shop'
+    require 'lucid_shopify/cache'
+    require 'lucid_shopify/cache/shop'
 
 ### Shop attributes
 
     myshopify_domain = ...
     access_token = ...
-    redis_client = ... # (optional, defaults to `Redis.current`)
 
-    shop = Lucid::Shopify::Cache::Shop.new(myshopify_domain, access_token, redis_client)
+    shop = LucidShopify::Cache::Shop.new(myshopify_domain, access_token)
 
     shop.attributes
 
