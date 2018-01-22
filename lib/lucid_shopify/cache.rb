@@ -1,4 +1,4 @@
-require_relative './lucid_shopify/cache/shop'
+require_relative './cache/shop'
 
 module LucidShopify
   module Cache; end
