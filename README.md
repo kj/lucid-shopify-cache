@@ -47,5 +47,5 @@ webhook which calls:
 
 ### TTL
 
-The default cache TTL is 3600, but this can be changed by setting
-the environment variable ‘LUCID_SHOPIFY_CACHE_TTL’.
+The default cache TTL is 3600 seconds (one hour), but this can be
+changed by setting the environment variable ‘LUCID_SHOPIFY_CACHE_TTL’.
