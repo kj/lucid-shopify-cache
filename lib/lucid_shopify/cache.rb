@@ -6,67 +6,88 @@ module LucidShopify
   class Cache
     TTL = ENV['LUCID_SHOPIFY_CACHE_TTL'] || 3600
 
-    #
-    # @param namespace [String]
-    # @param redis_client [Redis]
-    #
-    def initialize(namespace, redis_client: defined?(Redis) && Redis.current)
-      @namespace = namespace
-      @redis_client = redis_client
-    end
+    extend Dry::Initializer
 
     # @return [String]
-    attr_reader :namespace
+    param :namespace, default: proc { 'lucid_shopify-cache' }
     # @return [Redis]
-    attr_reader :redis_client
+    option :redis_client, default: proc { defined?(Redis) && Redis.current }
 
     #
-    # @param key_object [#to_s]
+    # Create a new instance with a new namespace appended to the current one.
+    #
+    # @param new_namespace [String]
+    #
+    # @return [Cache]
+    #
+    # @example
+    #   cache.add_namespace(myshopify_domain)
+    #
+    # @example Using the {+} operator alias
+    #   cache + myshopify_domain
+    #
+    def add_namespace(new_namespace)
+      self.class.new("#{namespace}:#{new_namespace}", redis_client)
+    end
+
+    alias_method :+, :add_namespace
+
+    #
+    # Fetch value from the cache, falling back to the given block when the cache
+    # is empty.
+    #
+    # @param key [String]
     # @param ttl [Integer]
     #
-    # @yield a block returning the new cache value if required
+    # @yieldreturn [#to_json]
     #
-    def call(key_object, ttl: TTL)
-      key = serialize_key(key_object)
-      cached_data = redis_client.get(key)
+    # @return [Object]
+    #
+    def call(key, ttl: TTL)
+      key = namespaced_key(key)
 
-      return parse(cached_data) unless cached_data.nil?
-
-      new_data = yield
-
-      redis_client.set(key, new_data.to_json)
-      redis_client.expire(key, ttl)
-
-      new_data
+      fetch(key) || cache(key, yield, ttl)
     end
 
     #
-    # @param key_object [#to_s]
+    # @param key [String]
+    #
+    # @return [Object, nil]
+    #
+    private def fetch(key)
+      val = redis_client.get(key)
+
+      val && JSON.parse(val)
+    end
+
+    #
+    # @param key [String]
+    # @param val [#to_json]
+    # @param ttl [Integer]
+    #
+    # @return [Object]
+    #
+    private def cache(key, val, ttl)
+      redis_client.set(key, val.to_json)
+      redis_client.expire(key, ttl)
+
+      val
+    end
+
+    #
+    # @param key [String]
     #
     # @return [String]
     #
-    private def serialize_key(key_object)
-      'lucid_shopify-cache:%s:%s' % [namespace, key_object.to_s]
+    private def namespaced_key(key)
+      "#{namespace}:#{key}"
     end
 
     #
-    # @param data [String]
+    # @param key [String]
     #
-    # @return [Hash, String] {Hash} when data looks like JSON
-    #
-    private def parse(data)
-      return data unless data.is_a?(String) && data.match?(/^{.*}$/)
-
-      JSON.parse(data)
-    end
-
-    #
-    # Clear the cache for [key_object].
-    #
-    # @param key_object [#to_s]
-    #
-    def clear(key_object)
-      redis_client.del(serialize_key(key_object))
+    def clear(key)
+      redis_client.del(namespaced_key(key))
     end
   end
 end

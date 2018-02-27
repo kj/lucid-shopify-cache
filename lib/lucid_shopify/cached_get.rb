@@ -7,48 +7,42 @@ require 'lucid_shopify/cache'
 
 module LucidShopify
   class CachedGet
-    #
-    # @param client [LucidShopify::Client]
-    # @param redis_client [Redis]
-    #
-    def initialize(client, redis_client: defined?(Redis) && Redis.current)
-      @client = client
-      @redis_client = redis_client
-    end
+    extend Dry::Initializer
 
+    # @return [Cache]
+    option :cache, default: proc { Cache.new }
     # @return [LucidShopify::Client]
-    attr_reader :client
-    # @return [Redis]
-    attr_reader :redis_client
+    option :client, default: proc { Client.new }
 
     #
-    # @param args [Array] see {LucidShopify::Client#get}
+    # @see {LucidShopify::Client#get}
+    #
     # @param ttl [Integer]
     #
-    def call(args, ttl: Cache::TTL)
-      @data ||=
-        cache.(args) { client.get(*args) }.freeze
+    def call(*get_args, ttl: Cache::TTL)
+      cache.(key(*get_args), ttl: ttl) { client.get(*get_args) }.freeze
     end
 
     #
-    # @return [Cache]
-    #
-    private def cache
-      @cache ||=
-        Cache.new(client.shop_credentials.myshopify_domain, redis_client: redis_client)
-    end
-
-    #
-    # @param args [Array] see {LucidShopify::Client#get}
+    # @see {LucidShopify::Client#get}
     #
     # @return [self]
     #
-    def clear(args)
-      @data = nil
-
-      cache.clear(args)
+    def clear(*get_args)
+      cache.clear(key(*get_args))
 
       self
+    end
+
+    #
+    # @see {LucidShopify::Client#get}
+    #
+    private def key(credentials, path, params = {})
+      [
+        credentials.myshopify_domain,
+        path,
+        params,
+      ].join(':')
     end
   end
 end
