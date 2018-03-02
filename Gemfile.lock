@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    lucid_shopify-cache (0.3.0)
-      dry-initializer (~> 2.4.0)
+    lucid_shopify-cache (0.3.1)
+      dry-initializer (~> 2.4)
 
 GEM
   remote: https://rubygems.org/
@@ -11,8 +11,8 @@ GEM
     diff-lcs (1.3)
     dry-initializer (2.4.0)
     parallel (1.12.1)
-    parser (2.4.0.2)
-      ast (~> 2.3)
+    parser (2.5.0.2)
+      ast (~> 2.4.0)
     powerpack (0.1.1)
     rainbow (3.0.0)
     rspec (3.6.0)
@@ -28,7 +28,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
-    rubocop (0.52.1)
+    rubocop (0.52.0)
       parallel (~> 1.10)
       parser (>= 2.4.0.2, < 3.0)
       powerpack (~> 0.1)
@@ -43,8 +43,8 @@ PLATFORMS
 
 DEPENDENCIES
   lucid_shopify-cache!
-  rspec (~> 3.6.0)
-  rubocop (~> 0.52.0)
+  rspec (~> 3.6)
+  rubocop (= 0.52.0)
 
 BUNDLED WITH
    1.16.1
