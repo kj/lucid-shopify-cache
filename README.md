@@ -41,7 +41,7 @@ You might want to set the TTL to a high value and clear it only
 when shop data actually changes. In this case, set up a ‘shop/update’
 webhook which calls:
 
-    cached_get.clear(*args).(*args)['shop']
+    cached_get.clear(*args).(*args)
 
 
 ### TTL
