@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require 'redis'
 
 module LucidShopify
   class Cache
@@ -11,7 +12,7 @@ module LucidShopify
     # @return [String]
     param :namespace, default: proc { 'lucid_shopify-cache' }
     # @return [Redis]
-    option :redis_client, default: proc { defined?(Redis) && Redis.current }
+    option :redis_client, default: proc { Redis.current }
 
     #
     # Create a new instance with a new namespace appended to the current one.

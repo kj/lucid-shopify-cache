@@ -2,6 +2,6 @@
 
 module LucidShopify
   class Cache
-    VERSION = '0.3.3'
+    VERSION = '0.4.0'
   end
 end
