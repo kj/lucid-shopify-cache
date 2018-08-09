@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'json'
 require 'redis'
+require 'cbor' # less parsing overhead, and smaller than JSON
 
 module LucidShopify
   class Cache
@@ -40,7 +40,7 @@ module LucidShopify
     # @param key [String]
     # @param ttl [Integer]
     #
-    # @yieldreturn [#to_json]
+    # @yieldreturn [#to_cbor]
     #
     # @return [Object]
     #
@@ -58,18 +58,18 @@ module LucidShopify
     private def fetch(key)
       val = redis_client.get(key)
 
-      val && JSON.parse(val)
+      val && CBOR.decode(val)
     end
 
     #
     # @param key [String]
-    # @param val [#to_json]
+    # @param val [#to_cbor]
     # @param ttl [Integer]
     #
     # @return [Object]
     #
     private def cache(key, val, ttl)
-      redis_client.set(key, val.to_json)
+      redis_client.set(key, CBOR.encode(val))
       redis_client.expire(key, ttl)
 
       val
