@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'digest'
 require 'net/http'
 require 'uri'
 
@@ -38,11 +39,11 @@ module LucidShopify
     # @see {LucidShopify::Client#get}
     #
     private def key(credentials, path, params = {})
-      [
+      Digest::MD5.hexdigest([
         credentials.myshopify_domain,
         path,
         params,
-      ].join(':')
+      ].join("\x1f")) # ASCII unit separator
     end
   end
 end
