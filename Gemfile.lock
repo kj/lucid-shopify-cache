@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    lucid_shopify-cache (0.8.0)
+    lucid_shopify-cache (0.9.0)
       cbor (~> 0.5)
       dry-initializer (~> 3.0)
-      lucid_shopify (~> 0.22)
+      lucid_shopify (~> 0.27)
       redis (~> 4.1)
 
 GEM
@@ -37,7 +37,7 @@ GEM
     http-form_data (2.1.1)
     http_parser.rb (0.6.0)
     jaro_winkler (1.5.2)
-    lucid_shopify (0.22.0)
+    lucid_shopify (0.27.0)
       dry-container (~> 0.7)
       dry-initializer (~> 3.0)
       http (~> 4.1)
@@ -47,7 +47,7 @@ GEM
     psych (3.1.0)
     public_suffix (3.0.3)
     rainbow (3.0.0)
-    redis (4.1.0)
+    redis (4.1.1)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)

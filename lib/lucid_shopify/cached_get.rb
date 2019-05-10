@@ -21,7 +21,7 @@ module LucidShopify
     # @param ttl [Integer]
     #
     def call(*get_args, ttl: Cache::TTL)
-      cache.(key(*get_args), ttl: ttl) { client.get(*get_args) }.freeze
+      cache.(key(*get_args), ttl: ttl) { client.get(*get_args).to_h }.freeze
     end
 
     #
