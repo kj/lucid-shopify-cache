@@ -15,29 +15,23 @@ module LucidShopify
     # @return [LucidShopify::Client]
     option :client, default: proc { Client.new }
 
-    #
     # @see {LucidShopify::Client#get}
     #
     # @param ttl [Integer]
-    #
     def call(*get_args, ttl: Cache::TTL)
       cache.(key(*get_args), ttl: ttl) { client.get(*get_args).to_h }.freeze
     end
 
-    #
     # @see {LucidShopify::Client#get}
     #
     # @return [self]
-    #
     def clear(*get_args)
       cache.clear(key(*get_args))
 
       self
     end
 
-    #
     # @see {LucidShopify::Client#get}
-    #
     private def key(credentials, path, params = {})
       Digest::MD5.hexdigest([
         credentials.myshopify_domain,

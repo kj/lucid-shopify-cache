@@ -14,7 +14,6 @@ module LucidShopify
     # @return [Redis]
     option :redis_client, default: proc { Redis.current }
 
-    #
     # Create a new instance with a new namespace appended to the current one.
     #
     # @param new_namespace [String]
@@ -26,14 +25,12 @@ module LucidShopify
     #
     # @example Using the {+} operator alias
     #   cache + myshopify_domain
-    #
     def add_namespace(new_namespace)
       self.class.new("#{namespace}:#{new_namespace}", redis_client)
     end
 
     alias_method :+, :add_namespace
 
-    #
     # Fetch value from the cache, falling back to the given block when the cache
     # is empty.
     #
@@ -43,31 +40,26 @@ module LucidShopify
     # @yieldreturn [#to_cbor]
     #
     # @return [Object]
-    #
     def call(key, ttl: TTL)
       key = namespaced_key(key)
 
       fetch(key) || cache(key, yield, ttl)
     end
 
-    #
     # @param key [String]
     #
     # @return [Object, nil]
-    #
     private def fetch(key)
       val = redis_client.get(key)
 
       val && CBOR.decode(val)
     end
 
-    #
     # @param key [String]
     # @param val [#to_cbor]
     # @param ttl [Integer]
     #
     # @return [Object]
-    #
     private def cache(key, val, ttl)
       redis_client.set(key, CBOR.encode(val))
       redis_client.expire(key, ttl)
@@ -75,18 +67,14 @@ module LucidShopify
       val
     end
 
-    #
     # @param key [String]
     #
     # @return [String]
-    #
     private def namespaced_key(key)
       "#{namespace}:#{key}"
     end
 
-    #
     # @param key [String]
-    #
     def clear(key)
       redis_client.del(namespaced_key(key))
     end
