@@ -1,4 +1,4 @@
-lucid_shopify-cache
+lucid-shopify-cache
 ===================
 
 Installation
@@ -6,8 +6,8 @@ Installation
 
 Add the gem to your ‘Gemfile’:
 
-    gem 'lucid_shopify'
-    gem 'lucid_shopify-cache'
+    gem 'lucid-shopify'
+    gem 'lucid-shopify-cache'
 
 
 Usage
@@ -15,9 +15,9 @@ Usage
 
 ### Make a cached GET request
 
-    require 'lucid_shopify/cached_get'
+    require 'lucid/shopify/cached_get'
 
-    cached_get = LucidShopify::CachedGet.new
+    cached_get = Lucid::Shopify::CachedGet.new
     
     args = [request_credentials, 'orders', fields: %w(id tags)]
     
