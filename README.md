@@ -37,14 +37,13 @@ To clear the cache:
 
 For the next hour, the data will be cached.
 
-You might want to set the TTL to a high value and clear it only
-when shop data actually changes. In this case, set up a ‘shop/update’
-webhook which calls:
+You might want to set the TTL to a high value and clear it only when shop data
+actually changes. In this case, set up a ‘shop/update’ webhook which calls:
 
     cached_get.clear(*args).(*args)
 
 
 ### TTL
 
-The default cache TTL is 3600 seconds (one hour), but this can be
-changed by setting the environment variable ‘LUCID_SHOPIFY_CACHE_TTL’.
+The default cache TTL is 3600 seconds (one hour), but this can be changed by
+setting the environment variable ‘LUCID_SHOPIFY_CACHE_TTL’.
