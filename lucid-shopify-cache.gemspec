@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '0.67'
   s.add_runtime_dependency 'cbor', '~> 0.5'
   s.add_runtime_dependency 'dry-initializer', '~> 3.0'
-  s.add_runtime_dependency 'lucid-shopify', '~> 0.34'
+  s.add_runtime_dependency 'lucid-shopify', '~> 0.52'
   s.add_runtime_dependency 'redis', '~> 4.1'
   s.author = 'Kelsey Judson'
   s.email = 'kelsey@lucid.nz'
