@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'digest'
-
+require 'dry-initializer'
 require 'lucid/shopify/cache'
 
 module Lucid

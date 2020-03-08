@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'redis'
 require 'cbor' # less parsing overhead, and smaller than JSON
+require 'dry-initializer'
+require 'redis'
 
 module Lucid
   module Shopify
