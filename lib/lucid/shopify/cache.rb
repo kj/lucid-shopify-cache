@@ -7,7 +7,7 @@ require 'redis'
 module Lucid
   module Shopify
     class Cache
-      TTL = ENV['LUCID_SHOPIFY_CACHE_TTL'] || 3600
+      TTL = (ENV['LUCID_SHOPIFY_CACHE_TTL'] || 3600).to_i
 
       extend Dry::Initializer
 
